@@ -2,7 +2,6 @@ package com.electronics.projects.controller;
 
 import com.electronics.projects.model.Project;
 import com.electronics.projects.service.ProjectService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
