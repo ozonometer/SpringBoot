@@ -29,10 +29,10 @@ public class Project extends UpdatableEntity {
     @OneToOne(mappedBy = "project", cascade = { CascadeType.ALL})
     private ProjectDescription projectDescription;
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", cascade = { CascadeType.ALL})
     private List<Image> images;
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", cascade = { CascadeType.ALL})
     private List<File> files;
 
     public Integer getId() {

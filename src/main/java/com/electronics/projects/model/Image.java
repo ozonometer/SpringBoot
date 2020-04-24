@@ -76,4 +76,14 @@ public class Image extends UpdatableEntity {
     public void setProject(Project project) {
         this.project = project;
     }
+
+    @Override
+    public String toString() {
+        return "Image{" +
+                "id=" + id +
+                ", imageName='" + imageName + '\'' +
+                ", url='" + url + '\'' +
+                ", imageDescription='" + imageDescription + '\'' +
+                '}';
+    }
 }

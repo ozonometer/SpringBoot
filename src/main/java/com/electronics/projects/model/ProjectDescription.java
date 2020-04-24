@@ -52,7 +52,6 @@ public class ProjectDescription extends UpdatableEntity{
     public String toString() {
         return "ProjectDescription{" +
                 "id=" + id +
-                ", project=" + project.getName() +
                 ", text='" + text + '\'' +
                 '}';
     }

@@ -1,5 +1,7 @@
 package com.electronics.projects.service;
 
+import com.electronics.projects.model.File;
+import com.electronics.projects.model.Image;
 import com.electronics.projects.model.Project;
 import com.electronics.projects.repository.ProjectRepo;
 import org.springframework.stereotype.Service;
@@ -40,6 +42,13 @@ public class ProjectServiceImpl implements ProjectService{
     @Override
     public Project createNew(Project project) {
         project.getProjectDescription().setProject(project);
+        for(Image img: project.getImages()) {
+            img.setProject(project);
+        }
+
+        for(File file: project.getFiles()) {
+            file.setProject(project);
+        }
         return projectRepo.save(project);
     }
 }
