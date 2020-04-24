@@ -1,5 +1,6 @@
 package com.electronics.projects.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,10 +16,6 @@ public class Image extends UpdatableEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "project_id")
-    @NotNull(message = "Project Id cannot be empty")
-    private Integer projectId;
-
     @NotNull
     @Column(name = "image_name")
     @Size(min = 5, max = 20, message = "Image name must be between 5 to 20 characters long")
@@ -28,4 +25,55 @@ public class Image extends UpdatableEntity {
     @NotNull(message = "URL cannot be empty")
     @Size(max = 150, message = "URL must be no longer than 150 characters")
     private String url;
+
+    @Column(name = "image_description")
+    @NotNull(message = "Image description cannot be empty")
+    @Size(max = 100, message = "Image description must be no longer than 100 characters")
+    private String imageDescription;
+
+    @ManyToOne( cascade = { CascadeType.ALL } )
+    @JoinColumn(name = "project_id")
+    @JsonIgnore
+    private Project project;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getImageDescription() {
+        return imageDescription;
+    }
+
+    public void setImageDescription(String imageDescription) {
+        this.imageDescription = imageDescription;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
 }

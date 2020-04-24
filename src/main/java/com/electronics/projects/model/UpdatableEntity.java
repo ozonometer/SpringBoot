@@ -1,21 +1,29 @@
 package com.electronics.projects.model;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
+import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @MappedSuperclass
-public abstract class UpdatableEntity {
+public abstract class UpdatableEntity implements Serializable {
 
-    @Column(name = "created", nullable = true, updatable = false, insertable = false)
+    @Column(name = "created")
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "Date create cannot be null")
     private Date created;
 
-    @Column(name = "updated", insertable = false)
+    @Column(name = "updated")
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "Date updated cannot be null")
     private Date updated;
 }

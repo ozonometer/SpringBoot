@@ -1,10 +1,10 @@
 CREATE DATABASE IF NOT EXISTS projectsdb;
 
 CREATE TABLE IF NOT EXISTS projectsdb.project (
-    id int NOT NULL AUTO_INCREMENT, 
+    id int NOT NULL AUTO_INCREMENT,
     name VARCHAR(20) NOT NULL,
     short_info VARCHAR(500) NOT NULL,
-    created DATE, 
+    created DATE,
     updated DATE,
     PRIMARY KEY (id)
  );
@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS projectsdb.image (
     project_id int NOT NULL,
     image_name VARCHAR(20) NOT NULL,
     url VARCHAR(150) NOT NULL,
+    image_description VARCHAR(100) NOT NULL,
     created DATE,
     updated DATE,
     PRIMARY KEY (id)
@@ -55,6 +56,7 @@ CREATE TABLE IF NOT EXISTS projectsdb.file (
     project_id int NOT NULL,
     file_name VARCHAR(20) NOT NULL,
     url VARCHAR(150) NOT NULL,
+    file_description VARCHAR(100) NOT NULL,
     created DATE,
     updated DATE,
     PRIMARY KEY (id)

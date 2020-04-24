@@ -8,11 +8,13 @@ import java.util.List;
 
 @Service
 public class ProjectServiceImpl implements ProjectService{
-    
-    final ProjectRepo projectRepo;
 
-    public ProjectServiceImpl(ProjectRepo projectRepo) {
+    final ProjectRepo projectRepo;
+    public final CloudStorageService cloud;
+
+    public ProjectServiceImpl(ProjectRepo projectRepo, CloudStorageService cloud) {
         this.projectRepo = projectRepo;
+        this.cloud = cloud;
     }
 
     @Override
@@ -27,6 +29,17 @@ public class ProjectServiceImpl implements ProjectService{
 
     @Override
     public Project saveOrUpdate(Project project) {
+        return projectRepo.save(project);
+    }
+
+    /**
+     * Inserts new project into database
+     * @param project Project object
+     * @return saved project entity
+     */
+    @Override
+    public Project createNew(Project project) {
+        project.getProjectDescription().setProject(project);
         return projectRepo.save(project);
     }
 }
