@@ -3,6 +3,8 @@ package com.electronics.projects.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -16,19 +18,22 @@ public class Project extends UpdatableEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @NotNull
+    @NotNull(message = "Project Name description cannot be empty")
     @Column(name = "name")
-    @Size(min = 5, max = 20, message = "Name must be between 5 to 20 characters long")
+    @Size(min = 5, max = 20, message = "Project Name must be between 5 to 20 characters long")
     private String name;
 
-    @NotNull
+    @NotNull(message = "Short description cannot be empty")
     @Column(name = "short_info")
-    @Size(min = 5, max = 500, message = "Short info must be between 5 to 500 characters long")
+    @Size(min = 5, max = 500, message = "Short description must be between 5 to 500 characters long")
     private String shortInfo;
 
+    @Valid
     @OneToOne(mappedBy = "project", cascade = { CascadeType.ALL})
     private ProjectDescription projectDescription;
 
+    @Valid
+    @NotEmpty(message = "Please add at least one image")
     @OneToMany(mappedBy = "project", cascade = { CascadeType.ALL})
     private List<Image> images;
 

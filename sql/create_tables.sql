@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS projectsdb.comment (
 CREATE TABLE IF NOT EXISTS projectsdb.image (
     id int NOT NULL AUTO_INCREMENT,
     project_id int NOT NULL,
-    image_name VARCHAR(20) NOT NULL,
+    image_name VARCHAR(100) NOT NULL,
     url VARCHAR(150) NOT NULL,
     image_description VARCHAR(100) NOT NULL,
     created DATE,
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS projectsdb.image (
 CREATE TABLE IF NOT EXISTS projectsdb.file (
     id int NOT NULL AUTO_INCREMENT,
     project_id int NOT NULL,
-    file_name VARCHAR(20) NOT NULL,
+    file_name VARCHAR(100) NOT NULL,
     url VARCHAR(150) NOT NULL,
     file_description VARCHAR(100) NOT NULL,
     created DATE,

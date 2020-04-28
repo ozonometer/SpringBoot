@@ -18,7 +18,7 @@ public class Image extends UpdatableEntity {
 
     @NotNull
     @Column(name = "image_name")
-    @Size(min = 5, max = 20, message = "Image name must be between 5 to 20 characters long")
+    @Size(max = 100, message = "Please rename image, max image name is 100 characters long")
     private String imageName;
 
     @Column(name = "url")

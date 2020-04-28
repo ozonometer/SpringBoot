@@ -18,6 +18,7 @@ public class CloudStorageServiceImpl implements CloudStorageService {
 
     final String BUCKET_NAME = "diyprojectfiles";
     final String IMAGE = "image";
+    final String FILE = "file";
     final String PROJECT_ID = "xenon-anvil-274300";
     final String BUCKET_HOME = "https://storage.googleapis.com/";
     final String API_KEY_PATH = "/etc/google/api_key2.json";
@@ -33,6 +34,31 @@ public class CloudStorageServiceImpl implements CloudStorageService {
         final String uploadPath = IMAGE + "/" + image.getOriginalFilename();
         final String uploadURL = BUCKET_HOME + BUCKET_NAME + "/" + uploadPath;
 
+        checkFileExtension(image.getOriginalFilename());
+        uploadToBucket(image, uploadPath);
+        return uploadURL ;
+    }
+
+    /**
+     * Method gets image and uploads it to specified google storage bucket
+     * @param file Mulitpart file received from frontend
+     * @return String with bucket url
+     */
+    @Override
+    public String uploadFile(MultipartFile file) throws IOException {
+        final String uploadPath = FILE + "/" + file.getOriginalFilename();
+        final String uploadURL = BUCKET_HOME + BUCKET_NAME + "/" + uploadPath;
+
+        uploadToBucket(file, uploadPath);
+        return  uploadURL;
+    }
+
+    /**
+     * Uploads file/image to Google bucket
+     * @param file File send by front end
+     * @param uploadPath Bucket upload path folder/file.extension
+     */
+    private void uploadToBucket(MultipartFile file, String uploadPath) throws IOException {
         Credentials credentials = GoogleCredentials.fromStream(new FileInputStream(API_KEY_PATH));
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).setProjectId(PROJECT_ID).build().getService();
         Policy originalPolicy = storage.getIamPolicy(BUCKET_NAME);
@@ -42,12 +68,10 @@ public class CloudStorageServiceImpl implements CloudStorageService {
                         .toBuilder()
                         .addIdentity(StorageRoles.objectViewer(), Identity.allUsers()) // All users can view
                         .build());
-        checkFileExtension(image.getOriginalFilename());
 
         BlobId blobId = BlobId.of(BUCKET_NAME, uploadPath);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
-        storage.create(blobInfo, image.getBytes());
-        return uploadURL ;
+        storage.create(blobInfo, file.getBytes());
     }
 
     private void checkFileExtension(String fileName) throws ServletException {

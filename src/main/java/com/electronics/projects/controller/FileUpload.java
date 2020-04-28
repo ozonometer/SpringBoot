@@ -35,5 +35,15 @@ public class FileUpload {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PostMapping("/file")
+    public ResponseEntity<HashMap<String, String>> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+
+        HashMap<String, String> response = new HashMap<>();
+        String uploadURL = cloudStorageService.uploadFile(file);
+
+        response.put("url", uploadURL);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }
 

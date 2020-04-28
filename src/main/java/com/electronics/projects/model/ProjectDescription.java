@@ -21,7 +21,7 @@ public class ProjectDescription extends UpdatableEntity{
     private Project project;
 
     @Column(name = "text")
-    @NotNull(message = "Text cannot be null")
+    @NotNull(message = "Detailed description cannot be empty")
     private String text;
 
     public Integer getId() {
