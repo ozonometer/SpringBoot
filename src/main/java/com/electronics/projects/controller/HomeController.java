@@ -13,18 +13,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class HomeController {
-    
+
     final
     ProjectService projectService;
 
     public HomeController(ProjectService projectService) {
         this.projectService = projectService;
-    }
-
-    @GetMapping("/project/{id}")
-    public ResponseEntity<Project> getProject(@PathVariable("id") int id) {
-        Project project = projectService.getById(id);
-        return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
     @GetMapping("/projects")
